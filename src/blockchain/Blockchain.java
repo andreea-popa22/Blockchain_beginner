@@ -40,4 +40,19 @@ public class Blockchain {
         newBlock.setHashCode(newBlock.calculateHash());
         this.chain.add(newBlock);
     }
+
+    public Boolean isChainValid(){
+        for (int i = 1; i < this.chain.size(); i++){
+            Block currentBlock = this.chain.get(i);
+            Block previousBlock = this.chain.get(i-1);
+            if (currentBlock.getHashCode() != previousBlock.calculateHash()){
+                return false;
+            }
+
+            if(currentBlock.getPreviousHashCode() != previousBlock.getHashCode()){
+                return false;
+            }
+        }
+        return true;
+    }
 }
